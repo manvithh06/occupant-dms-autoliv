@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+venv/
+.env
+data/raw/
+*.mp4
+*.avi
+*.zip
+models/*.pt
+models/*.onnx
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
