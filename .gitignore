@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+venv/
+.env
+
+# Data (too large for GitHub)
+data/raw/
+*.mp4
+*.avi
+*.zip
+
+# Models (too large)
+models/*.pt
+models/*.onnx
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
