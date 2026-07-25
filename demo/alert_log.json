@@ -1,80 +1,26 @@
 [
   {
-    "timestamp": "2026-07-25 12:07:25",
-    "type": "drowsy",
-    "level": "WARNING",
-    "message": "Driver appears drowsy"
-  },
-  {
-    "timestamp": "2026-07-25 12:07:30",
-    "type": "drowsy",
-    "level": "WARNING",
-    "message": "Driver appears drowsy"
-  },
-  {
-    "timestamp": "2026-07-25 12:07:31",
+    "timestamp": "2026-07-26 01:30:38",
     "type": "sleeping",
     "level": "CRITICAL",
     "message": "Driver is sleeping!"
   },
   {
-    "timestamp": "2026-07-25 12:07:36",
-    "type": "drowsy",
-    "level": "WARNING",
-    "message": "Driver appears drowsy"
-  },
-  {
-    "timestamp": "2026-07-25 12:07:41",
-    "type": "drowsy",
-    "level": "WARNING",
-    "message": "Driver appears drowsy"
-  },
-  {
-    "timestamp": "2026-07-25 12:07:48",
+    "timestamp": "2026-07-26 01:30:43",
     "type": "sleeping",
     "level": "CRITICAL",
     "message": "Driver is sleeping!"
   },
   {
-    "timestamp": "2026-07-25 12:08:05",
-    "type": "abnormal_breathing",
+    "timestamp": "2026-07-26 01:30:46",
+    "type": "drowsy",
     "level": "WARNING",
-    "message": "Abnormal breathing rate detected"
+    "message": "Driver appears drowsy"
   },
   {
-    "timestamp": "2026-07-25 12:08:11",
-    "type": "abnormal_breathing",
+    "timestamp": "2026-07-26 01:31:20",
+    "type": "distracted",
     "level": "WARNING",
-    "message": "Abnormal breathing rate detected"
-  },
-  {
-    "timestamp": "2026-07-25 12:08:16",
-    "type": "abnormal_breathing",
-    "level": "WARNING",
-    "message": "Abnormal breathing rate detected"
-  },
-  {
-    "timestamp": "2026-07-25 12:08:20",
-    "type": "sleeping",
-    "level": "CRITICAL",
-    "message": "Driver is sleeping!"
-  },
-  {
-    "timestamp": "2026-07-25 12:08:21",
-    "type": "abnormal_breathing",
-    "level": "WARNING",
-    "message": "Abnormal breathing rate detected"
-  },
-  {
-    "timestamp": "2026-07-25 12:08:27",
-    "type": "abnormal_breathing",
-    "level": "WARNING",
-    "message": "Abnormal breathing rate detected"
-  },
-  {
-    "timestamp": "2026-07-25 12:08:32",
-    "type": "abnormal_breathing",
-    "level": "WARNING",
-    "message": "Abnormal breathing rate detected"
+    "message": "Driver is distracted"
   }
 ]
