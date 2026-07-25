@@ -1,0 +1,44 @@
+[
+  {
+    "timestamp": "2026-07-25 11:45:27",
+    "type": "sleeping",
+    "level": "CRITICAL",
+    "message": "Driver is sleeping!"
+  },
+  {
+    "timestamp": "2026-07-25 11:45:27",
+    "type": "phone_use",
+    "level": "CRITICAL",
+    "message": "Driver using phone!"
+  },
+  {
+    "timestamp": "2026-07-25 11:45:27",
+    "type": "distracted",
+    "level": "WARNING",
+    "message": "Driver is distracted"
+  },
+  {
+    "timestamp": "2026-07-25 11:45:27",
+    "type": "high_hr",
+    "level": "WARNING",
+    "message": "Driver heart rate elevated"
+  },
+  {
+    "timestamp": "2026-07-25 11:45:27",
+    "type": "abnormal_breathing",
+    "level": "WARNING",
+    "message": "Abnormal breathing rate detected"
+  },
+  {
+    "timestamp": "2026-07-25 11:45:27",
+    "type": "high_stress",
+    "level": "WARNING",
+    "message": "Driver stress level high"
+  },
+  {
+    "timestamp": "2026-07-25 11:45:27",
+    "type": "infant_alone",
+    "level": "CRITICAL",
+    "message": "Infant left alone in vehicle!"
+  }
+]
