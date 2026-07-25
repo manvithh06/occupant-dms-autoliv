@@ -10,11 +10,10 @@ from datetime import datetime
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 
-from occupant.occupant_detector import OccupantDetector
-from driver.driver_monitor import DriverMonitor
-from vitals.rppg import RPPGMonitor
-from alerts.alert_engine import AlertEngine
-
+from src.occupant.occupant_detector import OccupantDetector
+from src.driver.driver_monitor import DriverMonitor
+from src.vitals.rppg import RPPGMonitor
+from src.alerts.alert_engine import AlertEngine
 # ─── App Setup ───────────────────────────────────────────
 app = FastAPI(title="Occupant DMS API")
 

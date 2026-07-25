@@ -1,44 +1,80 @@
 [
   {
-    "timestamp": "2026-07-25 11:45:27",
+    "timestamp": "2026-07-25 12:07:25",
+    "type": "drowsy",
+    "level": "WARNING",
+    "message": "Driver appears drowsy"
+  },
+  {
+    "timestamp": "2026-07-25 12:07:30",
+    "type": "drowsy",
+    "level": "WARNING",
+    "message": "Driver appears drowsy"
+  },
+  {
+    "timestamp": "2026-07-25 12:07:31",
     "type": "sleeping",
     "level": "CRITICAL",
     "message": "Driver is sleeping!"
   },
   {
-    "timestamp": "2026-07-25 11:45:27",
-    "type": "phone_use",
+    "timestamp": "2026-07-25 12:07:36",
+    "type": "drowsy",
+    "level": "WARNING",
+    "message": "Driver appears drowsy"
+  },
+  {
+    "timestamp": "2026-07-25 12:07:41",
+    "type": "drowsy",
+    "level": "WARNING",
+    "message": "Driver appears drowsy"
+  },
+  {
+    "timestamp": "2026-07-25 12:07:48",
+    "type": "sleeping",
     "level": "CRITICAL",
-    "message": "Driver using phone!"
+    "message": "Driver is sleeping!"
   },
   {
-    "timestamp": "2026-07-25 11:45:27",
-    "type": "distracted",
-    "level": "WARNING",
-    "message": "Driver is distracted"
-  },
-  {
-    "timestamp": "2026-07-25 11:45:27",
-    "type": "high_hr",
-    "level": "WARNING",
-    "message": "Driver heart rate elevated"
-  },
-  {
-    "timestamp": "2026-07-25 11:45:27",
+    "timestamp": "2026-07-25 12:08:05",
     "type": "abnormal_breathing",
     "level": "WARNING",
     "message": "Abnormal breathing rate detected"
   },
   {
-    "timestamp": "2026-07-25 11:45:27",
-    "type": "high_stress",
+    "timestamp": "2026-07-25 12:08:11",
+    "type": "abnormal_breathing",
     "level": "WARNING",
-    "message": "Driver stress level high"
+    "message": "Abnormal breathing rate detected"
   },
   {
-    "timestamp": "2026-07-25 11:45:27",
-    "type": "infant_alone",
+    "timestamp": "2026-07-25 12:08:16",
+    "type": "abnormal_breathing",
+    "level": "WARNING",
+    "message": "Abnormal breathing rate detected"
+  },
+  {
+    "timestamp": "2026-07-25 12:08:20",
+    "type": "sleeping",
     "level": "CRITICAL",
-    "message": "Infant left alone in vehicle!"
+    "message": "Driver is sleeping!"
+  },
+  {
+    "timestamp": "2026-07-25 12:08:21",
+    "type": "abnormal_breathing",
+    "level": "WARNING",
+    "message": "Abnormal breathing rate detected"
+  },
+  {
+    "timestamp": "2026-07-25 12:08:27",
+    "type": "abnormal_breathing",
+    "level": "WARNING",
+    "message": "Abnormal breathing rate detected"
+  },
+  {
+    "timestamp": "2026-07-25 12:08:32",
+    "type": "abnormal_breathing",
+    "level": "WARNING",
+    "message": "Abnormal breathing rate detected"
   }
 ]
