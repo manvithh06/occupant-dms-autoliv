@@ -34,3 +34,4 @@ models/*.onnx
 >>>>>>> ml/manvith
 .DS_Store
 Thumbs.db
+yolov8n.pt
