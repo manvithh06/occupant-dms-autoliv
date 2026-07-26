@@ -1,26 +1,68 @@
 [
   {
-    "timestamp": "2026-07-26 01:30:38",
+    "timestamp": "2026-07-26 01:38:10",
     "type": "sleeping",
     "level": "CRITICAL",
     "message": "Driver is sleeping!"
   },
   {
-    "timestamp": "2026-07-26 01:30:43",
-    "type": "sleeping",
-    "level": "CRITICAL",
-    "message": "Driver is sleeping!"
-  },
-  {
-    "timestamp": "2026-07-26 01:30:46",
+    "timestamp": "2026-07-26 01:38:14",
     "type": "drowsy",
     "level": "WARNING",
     "message": "Driver appears drowsy"
   },
   {
-    "timestamp": "2026-07-26 01:31:20",
+    "timestamp": "2026-07-26 01:38:24",
+    "type": "high_hr",
+    "level": "WARNING",
+    "message": "Driver heart rate elevated"
+  },
+  {
+    "timestamp": "2026-07-26 01:38:24",
+    "type": "high_stress",
+    "level": "WARNING",
+    "message": "Driver stress level high"
+  },
+  {
+    "timestamp": "2026-07-26 01:38:29",
+    "type": "high_hr",
+    "level": "WARNING",
+    "message": "Driver heart rate elevated"
+  },
+  {
+    "timestamp": "2026-07-26 01:38:29",
+    "type": "high_stress",
+    "level": "WARNING",
+    "message": "Driver stress level high"
+  },
+  {
+    "timestamp": "2026-07-26 01:38:34",
+    "type": "high_hr",
+    "level": "WARNING",
+    "message": "Driver heart rate elevated"
+  },
+  {
+    "timestamp": "2026-07-26 01:38:34",
+    "type": "high_stress",
+    "level": "WARNING",
+    "message": "Driver stress level high"
+  },
+  {
+    "timestamp": "2026-07-26 01:38:43",
+    "type": "abnormal_breathing",
+    "level": "WARNING",
+    "message": "Abnormal breathing rate detected"
+  },
+  {
+    "timestamp": "2026-07-26 01:38:44",
     "type": "distracted",
     "level": "WARNING",
     "message": "Driver is distracted"
+  },
+  {
+    "timestamp": "2026-07-26 01:38:48",
+    "type": "abnormal_breathing",
+    "level": "WARNING",
+    "message": "Abnormal breathing rate detected"
   }
 ]
