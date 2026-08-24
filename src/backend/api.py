@@ -1,131 +1,122 @@
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+"""
+backend/api.py — FastAPI REST + WebSocket server for Occupant DMS.
 
-import cv2
+Start with::
+
+    uvicorn backend.api:app --host 0.0.0.0 --port 8000 --reload
+
+Endpoints:
+    GET  /          — health check
+    GET  /health    — camera + pipeline status
+    GET  /start     — start the camera pipeline
+    GET  /stop      — stop the camera pipeline
+    GET  /status    — latest detection state
+    GET  /alerts    — active + full alert history
+    WS   /ws        — live push every 500 ms
+"""
+
+from __future__ import annotations
+
 import asyncio
-import json
+import logging
 import threading
-from datetime import datetime
+from typing import Any
+
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 
-from src.occupant.occupant_detector import OccupantDetector
-from src.driver.driver_monitor import DriverMonitor
-from src.vitals.rppg import RPPGMonitor
-from src.alerts.alert_engine import AlertEngine
-# ─── App Setup ───────────────────────────────────────────
-app = FastAPI(title="Occupant DMS API")
+# ── sys.path hacks removed — install package with:  pip install -e .  ─────────
+from config import cfg
+from pipeline import DMSPipeline
+
+log = logging.getLogger("DMS.api")
+
+# ── App setup ─────────────────────────────────────────────────────────────────
+app = FastAPI(
+    title       = "Occupant DMS API",
+    description = "Autoliv Driver & Occupant Monitoring System REST + WebSocket API",
+    version     = "1.0.0",
+)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins  = ["*"],
+    allow_methods  = ["*"],
+    allow_headers  = ["*"],
 )
 
-# ─── Global State ────────────────────────────────────────
-latest_data = {
-    "driver":   {"state": "unknown"},
-    "occupant": {"total_occupied": 0, "detections": []},
-    "vitals":   {"bpm": 0, "breathing_rate": 0, "stress": "unknown"},
-    "alerts":   [],
-    "timestamp": ""
-}
+# ── Pipeline singleton ────────────────────────────────────────────────────────
+_pipeline: DMSPipeline = DMSPipeline()
 
-camera_running = False
-camera_thread  = None
+# ── Thread-safe state access is handled inside DMSPipeline.get_state() ────────
 
-# ─── Module Instances ────────────────────────────────────
-occupant_detector = OccupantDetector()
-driver_monitor    = DriverMonitor()
-rppg_monitor      = RPPGMonitor()
-alert_engine      = AlertEngine()
 
-# ─── Camera Loop (runs in background thread) ─────────────
-def camera_loop():
-    global latest_data, camera_running
-    cap = cv2.VideoCapture(0)
+# ── Lifecycle ─────────────────────────────────────────────────────────────────
+@app.on_event("startup")
+async def _on_startup() -> None:
+    log.info("API starting up — pipeline ready (not yet running).")
 
-    if not cap.isOpened():
-        print("[ERROR] Cannot open camera")
-        return
 
-    print("[Camera] Started")
+@app.on_event("shutdown")
+async def _on_shutdown() -> None:
+    log.info("API shutting down — stopping pipeline.")
+    _pipeline.stop()
 
-    while camera_running:
-        ret, frame = cap.read()
-        if not ret:
-            continue
 
-        # Run all modules
-        detections        = occupant_detector.detect(frame)
-        seat_map          = occupant_detector.get_seat_map(detections)
-        _, driver_info    = driver_monitor.analyze(frame)
-        _, vitals_info    = rppg_monitor.analyze(frame)
-
-        # Process alerts
-        alerts = []
-        alerts += alert_engine.process_driver_state(driver_info)
-        alerts += alert_engine.process_vitals(vitals_info)
-        alerts += alert_engine.process_occupants(seat_map)
-
-        # Update global state
-        latest_data = {
-            "driver":    driver_info,
-            "occupant":  seat_map,
-            "vitals":    vitals_info,
-            "alerts":    alerts,
-            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        }
-
-    cap.release()
-    print("[Camera] Stopped")
-
-# ─── REST Endpoints ──────────────────────────────────────
-@app.get("/")
-def root():
+# ── REST endpoints ────────────────────────────────────────────────────────────
+@app.get("/", summary="Root health check")
+def root() -> dict[str, str]:
     return {"status": "Occupant DMS API running"}
 
-@app.get("/health")
-def health():
-    return {"status": "ok", "camera": camera_running}
 
-@app.get("/start")
-def start_camera():
-    global camera_running, camera_thread
-    if not camera_running:
-        camera_running = True
-        camera_thread  = threading.Thread(target=camera_loop, daemon=True)
-        camera_thread.start()
-        return {"status": "Camera started"}
-    return {"status": "Already running"}
-
-@app.get("/stop")
-def stop_camera():
-    global camera_running
-    camera_running = False
-    return {"status": "Camera stopped"}
-
-@app.get("/status")
-def get_status():
-    return latest_data
-
-@app.get("/alerts")
-def get_alerts():
+@app.get("/health", summary="Pipeline + camera status")
+def health() -> dict[str, Any]:
     return {
-        "active":  alert_engine.get_active_alerts(),
-        "history": alert_engine.get_history()
+        "status":  "ok",
+        "camera":  _pipeline.running,
+        "version": "1.0.0",
     }
 
-# ─── WebSocket for Live Dashboard ────────────────────────
+
+@app.get("/start", summary="Start the camera pipeline")
+def start_camera() -> dict[str, str]:
+    if _pipeline.running:
+        return {"status": "already_running"}
+    _pipeline.start()
+    return {"status": "started"}
+
+
+@app.get("/stop", summary="Stop the camera pipeline")
+def stop_camera() -> dict[str, str]:
+    _pipeline.stop()
+    return {"status": "stopped"}
+
+
+@app.get("/status", summary="Latest detection state")
+def get_status() -> dict[str, Any]:
+    return _pipeline.get_state()
+
+
+@app.get("/alerts", summary="Active and historical alerts")
+def get_alerts() -> dict[str, Any]:
+    engine = _pipeline.get_alert_engine()
+    return {
+        "active":  engine.get_active_alerts(),
+        "history": engine.get_history(),
+    }
+
+
+# ── WebSocket — live dashboard feed ──────────────────────────────────────────
 @app.websocket("/ws")
-async def websocket_endpoint(websocket: WebSocket):
+async def websocket_endpoint(websocket: WebSocket) -> None:
     await websocket.accept()
-    print("[WS] Client connected")
+    log.info("[WS] Client connected: %s", websocket.client)
     try:
         while True:
-            await websocket.send_json(latest_data)
-            await asyncio.sleep(0.5)  # send update every 500ms
+            state = _pipeline.get_state()   # thread-safe
+            await websocket.send_json(state)
+            await asyncio.sleep(0.5)        # push update every 500 ms
     except WebSocketDisconnect:
-        print("[WS] Client disconnected")
+        log.info("[WS] Client disconnected.")
+    except Exception as exc:
+        log.warning("[WS] Connection error: %s", exc)

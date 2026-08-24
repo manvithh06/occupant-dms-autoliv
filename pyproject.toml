@@ -1,0 +1,58 @@
+[build-system]
+requires      = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name        = "occupant-dms"
+version     = "1.0.0"
+description = "Autoliv Occupant Detection & Driver Monitoring System"
+requires-python = ">=3.10"
+
+# Core runtime dependencies (pinned to ranges for compatibility)
+dependencies = [
+    "opencv-python>=4.8",
+    "mediapipe>=0.10",
+    "ultralytics>=8.0",
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "fastapi>=0.100",
+    "uvicorn[standard]>=0.23",
+    "PyYAML>=6.0",
+    "plyer>=2.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4",
+    "pytest-cov>=4.1",
+    "ruff>=0.1",
+]
+
+# ── Package discovery ──────────────────────────────────────────────────────────
+# All importable packages live under src/.
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+# ── Entry points ───────────────────────────────────────────────────────────────
+[project.scripts]
+dms       = "main:run_dms"
+dms-demo  = "demo_recorder:run_demo"
+
+# ── Ruff (linter) configuration ────────────────────────────────────────────────
+[tool.ruff]
+line-length    = 100
+target-version = "py310"
+src            = ["src"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B"]
+ignore = ["E501"]   # line length handled by formatter
+
+# ── Pytest ────────────────────────────────────────────────────────────────────
+[tool.pytest.ini_options]
+testpaths    = ["tests"]
+addopts      = "-v --tb=short"
+pythonpath   = ["src"]   # ensures `from config import cfg` works in tests

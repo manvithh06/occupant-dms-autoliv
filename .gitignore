@@ -1,36 +1,57 @@
-<<<<<<< HEAD
-# Python
+# ── Python ────────────────────────────────────────────────────────────────────
 __pycache__/
 *.py[cod]
+*.pyo
+*.pyd
 *.egg-info/
+*.egg
+dist/
+build/
+.eggs/
 venv/
+.venv/
+env/
 .env
 
-# Data (too large for GitHub)
-=======
-__pycache__/
-*.py[cod]
-venv/
-.env
->>>>>>> ml/manvith
+# ── Node / Frontend ───────────────────────────────────────────────────────────
+node_modules/
+.npm/
+.yarn/
+dist/
+*.lock
+
+# ── Data (large files not suitable for Git) ───────────────────────────────────
 data/raw/
 *.mp4
 *.avi
 *.zip
-<<<<<<< HEAD
+*.h5
+*.hdf5
 
-# Models (too large)
+# ── Models (large weight files — use Git LFS or download scripts) ─────────────
 models/*.pt
 models/*.onnx
+models/*.engine
+# Keep the README that describes how to obtain weights
+!models/README.md
 
-# Jupyter
+# ── Logs (runtime artifacts — not source) ─────────────────────────────────────
+logs/
+*.log
+*.jsonl
+
+# ── Jupyter ───────────────────────────────────────────────────────────────────
 .ipynb_checkpoints/
 
-# OS
-=======
-models/*.pt
-models/*.onnx
-.ipynb_checkpoints/
->>>>>>> ml/manvith
+# ── IDEs & OS ─────────────────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# ── Coverage / test artifacts ─────────────────────────────────────────────────
+.coverage
+htmlcov/
+.pytest_cache/
