@@ -324,12 +324,5 @@ python src/alerts/alert_engine.py
 
 ---
 
-## 📄 License
-
-MIT License — see [LICENSE](LICENSE) for details.
-
----
-
-<div align="center">
-Built with ❤️ by Team Autoliv — NMAM Institute of Technology, Mangaluru
+ Team Autoliv — NMAM Institute of Technology, Mangaluru
 </div>
