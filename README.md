@@ -28,18 +28,7 @@ Built as a **software-first prototype** that runs on a standard laptop webcam, w
 
 ---
 
-## 👥 Team
 
-| Name | Role | USN |
-|------|------|-----|
-| **Manvith Devadiga** | AI/ML Lead | NNM24AM029 |
-| **Abhinav D Shetty** | Backend | NNM24AM001 |
-| **Adish Shetty** | Data & Frontend | NNM24AM003 |
-
-**Guide:** Mr. Mahesh B L  
-**Industry Mentor:** Abhijeet Atwadkar, Autoliv India
-
----
 
 ## 🏗️ System Architecture
 
